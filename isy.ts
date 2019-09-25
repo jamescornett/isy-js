@@ -124,7 +124,8 @@ export class ISY {
 				explicitArray: false,
 				mergeAttrs: true,
 				strict: false,
-				normalizeTags: true
+				normalizeTags: true,
+				normalize: true
 			}
 		};
 
