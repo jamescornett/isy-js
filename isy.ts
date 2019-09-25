@@ -498,7 +498,11 @@ export class ISY {
 							device.nodeDefId
 						} is not specifically supported, returning generic device object: ${JSON.stringify(device)} `
 					);
-					newDevice = new ISYDevice(this, device);
+					if (device.property != null) {
+						newDevice = new ISYDevice(this, device);
+					} else {
+						this.logger(`property was missing; skipping device ${device.name}`);
+					}
 				}
 				if (newDevice !== null) {
 					this.deviceList.set(newDevice.address, newDevice);
@@ -740,7 +744,7 @@ export class ISY {
 		const result = await this.callISY('status');
 		// this.logger(JSON.stringify(result.nodes.node));
 		for (const node of result.nodes.node) {
-			// this.logger(node);
+			this.logger(`Refreshing status for ${JSON.stringify(node)}`);
 			const device = that.getDevice(node.id);
 			if (Array.isArray(node.property)) {
 				for (const prop of node.property) {
@@ -777,8 +781,10 @@ export class ISY {
 
 		this.loadConfig()
 			.then(this.loadNodes.bind(this))
-			.then(() =>
+			.then(() => {
+				that.logger('Refreshing Statuses...');
 				this.refreshStatuses().then(() => {
+					that.logger('Loading variables...');
 					this.loadVariables(VariableTypes.Integer, () => {
 						this.loadVariables(VariableTypes.State, () => {
 							if (this.elkEnabled) {
@@ -818,8 +824,8 @@ export class ISY {
 						});
 					});
 				})
-			)
-			.catch((reason) => this.logger('Error calling ISY: ' + reason));
+			})
+			.catch((reason) => this.logger('Error calling ISY during loadConfig(): ' + reason));
 	}
 
 	public handleWebSocketMessage(event) {
