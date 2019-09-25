@@ -742,7 +742,7 @@ export class ISY {
 	public async refreshStatuses() {
 		const that = this;
 		const result = await this.callISY('status');
-		// this.logger(JSON.stringify(result.nodes.node));
+		this.logger(`Got response from ISY for Status request: ${JSON.stringify(result)}`);
 		for (const node of result.nodes.node) {
 			this.logger(`Refreshing status for ${JSON.stringify(node)}`);
 			const device = that.getDevice(node.id);
@@ -824,6 +824,7 @@ export class ISY {
 						});
 					});
 				})
+				.catch((reason) => this.logger('Error calling refreshStatuses(): ' + reason));
 			})
 			.catch((reason) => this.logger('Error calling ISY during loadConfig(): ' + reason));
 	}
