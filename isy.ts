@@ -496,7 +496,7 @@ export class ISY {
 					this.logger(
 						`Device ${device.name} with type: ${device.type} and nodedef: ${
 							device.nodeDefId
-						} is not specifically supported, returning generic device object. `
+						} is not specifically supported, returning generic device object: ${JSON.stringify(device)} `
 					);
 					newDevice = new ISYDevice(this, device);
 				}
