@@ -407,11 +407,15 @@ export class ISY {
 	}
 
 	public loadNodes() {
+		this.logger("Loading Nodes from API...")
 		return this.callISY('nodes').then((result) => {
 			if (this.debugLogEnabled) {
+				this.logger("Dumping Nodes to disk...");
 				writeFile('ISYNodesDump.json', JSON.stringify(result), this.logger);
 			}
+			this.logger("Loading Devices...");
 			this.loadDevices(result);
+			this.logger("Loading Scenes...");
 			this.loadScenes(result);
 		});
 	}
@@ -439,7 +443,7 @@ export class ISY {
 			}
 			let newDevice: ISYDevice = null;
 			let deviceTypeInfo = this.isyTypeToTypeName(device.type, device.address);
-			// this.logger(JSON.stringify(deviceTypeInfo));
+			this.logger(JSON.stringify(`Loading Device: ${JSON.stringify(device)}`));
 
 			const enabled = Boolean(device.enabled);
 			if (enabled) {
