@@ -122,7 +122,8 @@ export class ISY {
 			parser: parsers.xml,
 			xml2js: {
 				explicitArray: false,
-				mergeAttrs: true
+				mergeAttrs: true,
+				strict: false
 			}
 		};
 
