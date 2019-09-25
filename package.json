@@ -19,16 +19,17 @@
     ],
     "main": "./lib/isy.js",
     "devDependencies": {
-        "mocha": "",
+        "@types/node": "^12.7.7",
+        "babel-preset-env": "^1.7.0",
         "fake-isy-994i": "",
-        "@types/node": "^10.11.6",
-        "babel-preset-env": "^1.7.0"
+        "mocha": "",
+        "typescript": "*"
     },
     "dependencies": {
         "faye-websocket": "",
         "restler": "^3.4.0",
         "restler-base": "^3.4.6",
-        "xml2js": "^0.4.19",
+        "xml2js": "^0.4.22",
         "xmldoc": "^1.1.2"
     },
     "bugs": {
