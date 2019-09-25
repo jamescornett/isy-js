@@ -643,10 +643,11 @@ export class ISY {
 
 	public async loadConfig() {
 		const result = await this.callISY('config');
+		this.logger(`Config: ${result}`);
 		if (this.debugLogEnabled) {
 			writeFile('ISYConfigDump.json', JSON.stringify(result), this.logger);
 		}
-
+		
 		const controls = result.configuration.controls;
 		// this.logger(result.configuration);
 		if (controls !== undefined) {
