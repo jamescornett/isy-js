@@ -123,7 +123,8 @@ export class ISY {
 			xml2js: {
 				explicitArray: false,
 				mergeAttrs: true,
-				strict: false
+				strict: false,
+				normalizeTags: true
 			}
 		};
 
@@ -136,7 +137,7 @@ export class ISY {
 		this.wsprotocol = 'ws';
 		this.elkEnabled = elkEnabled;
 		this.zoneMap = {};
-
+		
 		this.debugLogEnabled =
 			enableDebugLogging === undefined ? false : enableDebugLogging;
 		this.scenesInDeviceList =
@@ -643,7 +644,7 @@ export class ISY {
 
 	public async loadConfig() {
 		const result = await this.callISY('config');
-		this.logger(`Config: ${JSON.stringify(result)}`);
+		//this.logger(`Config: ${JSON.stringify(result)}`);
 		if (this.debugLogEnabled) {
 			writeFile('ISYConfigDump.json', JSON.stringify(result), this.logger);
 		}
