@@ -433,6 +433,7 @@ export class ISY {
 
 	public loadDevices(obj) {
 		for (const device of obj.nodes.node) {
+			this.logger(JSON.stringify(`Loading Device: ${JSON.stringify(device)}`));
 			if (!this.deviceMap.has(device.pnode)) {
 				const address = device.address;
 				this.deviceMap[device.pnode] = {
@@ -443,7 +444,7 @@ export class ISY {
 			}
 			let newDevice: ISYDevice = null;
 			let deviceTypeInfo = this.isyTypeToTypeName(device.type, device.address);
-			this.logger(JSON.stringify(`Loading Device: ${JSON.stringify(device)}`));
+			
 
 			const enabled = Boolean(device.enabled);
 			if (enabled) {
